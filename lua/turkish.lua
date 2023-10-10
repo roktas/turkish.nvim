@@ -325,14 +325,14 @@ end
 local mappings = {
   { 'n', '<Char-305>', '@q',                                                   },  -- ı → Dotless i:  'q' kaydedicisindeki içeriği çalıştır (makro kayıtlarında yararlı)
 
-  { 'n', '<Char-252>', '<Nop>'                                                 },  -- ü → udiaeresis: <Nop>
-  { 'n', '<Char-220>', '<Nop>'                                                 },  -- Ü → Udiaeresis: <Nop>
+  { 'n', '<Char-252>', '<Leader>'                                              },  -- ü → udiaeresis: <Nop>
+  { 'n', '<Char-220>', '<Localleader>'                                         },  -- Ü → Udiaeresis: <Nop>
 
   { 'n', '<Char-246>', '<c-]>'                                                 },  -- ö → odiaeresis: <c-]>
   { 'n', '<Char-214>', '<Nop>'                                                 },  -- Ö → Odiaeresis: <Nop>
 
-  { '',  '<Char-231>', '<Leader>'                                              },  -- ç → ccedilla: <Leader>
-  { '',  '<Char-199>', '<LocalLeader>'                                         },  -- Ç → Ccedilla: <LocalLeader>
+  { '',  '<Char-231>', '<Nop>'                                                 },  -- ç → ccedilla: <Leader>
+  { '',  '<Char-199>', '<Nop>'                                                 },  -- Ç → Ccedilla: <LocalLeader>
 
   { 'n', '<Char-287>', '}'                                                     },  -- ğ → gbreve: }
   { 'n', '<Char-287>', '}'                                                     },  -- ğ → gbreve: }
