@@ -24,6 +24,54 @@ Turkish.defaults = function()
   Turkish.use({ abbreviate = { "markdown", "text", "tex" }, map = true })
 end
 
+------------------------------------------------------------------------------------------------------------------------
+-- Mappings
+------------------------------------------------------------------------------------------------------------------------
+
+local mappings = {
+  { 'n', '<Char-305>', '@q',                                                   },  -- ı → Dotless i:  'q' kaydedicisindeki içeriği çalıştır (makro kayıtlarında yararlı)
+
+  { 'n', '<Char-252>', '<Leader>'                                              },  -- ü → udiaeresis: <Leader>
+  { 'n', '<Char-220>', '<Localleader>'                                         },  -- Ü → Udiaeresis: <LocalLeader>
+
+  { 'n', '<Char-246>', '<c-]>'                                                 },  -- ö → odiaeresis: <c-]>
+  { 'n', '<Char-214>', '<Nop>'                                                 },  -- Ö → Odiaeresis: <Nop>
+
+  { '',  '<Char-231>', '<Nop>'                                                 },  -- ç → ccedilla: <Nop>
+  { '',  '<Char-199>', '<Nop>'                                                 },  -- Ç → Ccedilla: <Nop>
+
+  { 'n', '<Char-287>', '}'                                                     },  -- ğ → gbreve: }
+  { 'n', '<Char-287>', '}'                                                     },  -- ğ → gbreve: }
+  { 'v', '<Char-286>', '{'                                                     },  -- Ğ → Gbreve {
+  { 'v', '<Char-286>', '{'                                                     },  -- Ğ → Gbreve {
+
+  { 'n', '<Char-351>', ':%s/<c-r>=expand("<cword>")<cr>//gc<left><left><left>' }, -- ş → scedilla: Kursörün altındaki kelimeyi bul/değiştir
+  { 'v', '<Char-351>', ':s/<c-r>=expand("<cword>")<cr>//gc<left><left><left>'  }, -- ş → scedilla: Kursörün altındaki kelimeyi bul/değiştir
+
+  { 'n', '<Char-350>', ':%s///gc<left><left><left><left>'                      }, -- Ş → Scedilla: Bul/değiştir istemine geç
+  { 'v', '<Char-350>', ':s///gc<left><left><left><left>'                       }, -- Ş → Scedilla: Bul/değiştir istemine geç
+}
+
+Turkish.use_mappings = function()
+  local mapping
+
+  for _, mapping in ipairs(mappings) do
+    local mode = mapping[1]
+    local lhs  = mapping[2]
+    local rhs  = mapping[3]
+
+    -- User has not mapped (a keyseq starting with) `lhs` to something else.
+    -- User has not already mapped something to the <Plug> key.
+    if vim.fn.mapcheck(lhs, mode) == "" and vim.fn.hasmapto(rhs, mode) == 0 then
+      vim.api.nvim_set_keymap(mode, lhs, rhs, {})
+    end
+  end
+end
+
+------------------------------------------------------------------------------------------------------------------------
+-- Abbreviations
+------------------------------------------------------------------------------------------------------------------------
+
 local abbreviations = {
   { "acenta",        "acente"        },
   { "Acenta",        "Acente"        },
@@ -319,46 +367,6 @@ Turkish.use_abbreviations = function()
 
   for _, pair in ipairs(abbreviations) do
     vim.cmd.iabbrev(pair)
-  end
-end
-
-local mappings = {
-  { 'n', '<Char-305>', '@q',                                                   },  -- ı → Dotless i:  'q' kaydedicisindeki içeriği çalıştır (makro kayıtlarında yararlı)
-
-  { 'n', '<Char-252>', '<Leader>'                                              },  -- ü → udiaeresis: <Nop>
-  { 'n', '<Char-220>', '<Localleader>'                                         },  -- Ü → Udiaeresis: <Nop>
-
-  { 'n', '<Char-246>', '<c-]>'                                                 },  -- ö → odiaeresis: <c-]>
-  { 'n', '<Char-214>', '<Nop>'                                                 },  -- Ö → Odiaeresis: <Nop>
-
-  { '',  '<Char-231>', '<Nop>'                                                 },  -- ç → ccedilla: <Leader>
-  { '',  '<Char-199>', '<Nop>'                                                 },  -- Ç → Ccedilla: <LocalLeader>
-
-  { 'n', '<Char-287>', '}'                                                     },  -- ğ → gbreve: }
-  { 'n', '<Char-287>', '}'                                                     },  -- ğ → gbreve: }
-  { 'v', '<Char-286>', '{'                                                     },  -- Ğ → Gbreve {
-  { 'v', '<Char-286>', '{'                                                     },  -- Ğ → Gbreve {
-
-  { 'n', '<Char-351>', ':%s/<c-r>=expand("<cword>")<cr>//gc<left><left><left>' }, -- ş → scedilla: Kursörün altındaki kelimeyi bul/değiştir
-  { 'v', '<Char-351>', ':s/<c-r>=expand("<cword>")<cr>//gc<left><left><left>'  }, -- ş → scedilla: Kursörün altındaki kelimeyi bul/değiştir
-
-  { 'n', '<Char-350>', ':%s///gc<left><left><left><left>'                      }, -- Ş → Scedilla: Bul/değiştir istemine geç
-  { 'v', '<Char-350>', ':s///gc<left><left><left><left>'                       }, -- Ş → Scedilla: Bul/değiştir istemine geç
-}
-
-Turkish.use_mappings = function()
-  local mapping
-
-  for _, mapping in ipairs(mappings) do
-    local mode = mapping[1]
-    local lhs  = mapping[2]
-    local rhs  = mapping[3]
-
-    -- User has not mapped (a keyseq starting with) `lhs` to something else.
-    -- User has not already mapped something to the <Plug> key.
-    if vim.fn.mapcheck(lhs, mode) == "" and vim.fn.hasmapto(rhs, mode) == 0 then
-      vim.api.nvim_set_keymap(mode, lhs, rhs, {})
-    end
   end
 end
 
