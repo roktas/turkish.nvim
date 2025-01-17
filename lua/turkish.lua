@@ -315,8 +315,6 @@ local abbreviations = {
 }
 
 Turkish.use_abbreviations = function()
-  local pair
-
   for _, pair in ipairs(abbreviations) do
     vim.cmd.iabbrev(pair)
   end
@@ -325,8 +323,10 @@ end
 local mappings = {
   { 'n', '<Char-305>', '@q',                                                   },  -- ı → Dotless i:  'q' kaydedicisindeki içeriği çalıştır (makro kayıtlarında yararlı)
 
-  { 'n', '<Char-252>', '<Nop>'                                                 },  -- ü → udiaeresis: <Nop>
-  { 'n', '<Char-220>', '<Nop>'                                                 },  -- Ü → Udiaeresis: <Nop>
+  { 'n', '<Char-252>', ']'                                                     },  -- ü → udiaeresis: ]
+  { 'v', '<Char-252>', ']'                                                     },  -- ü → udiaeresis: ]
+  { 'n', '<Char-220>', '}'                                                     },  -- Ü → Udiaeresis: }
+  { 'v', '<Char-220>', '}'                                                     },  -- Ü → Udiaeresis: }
 
   { 'n', '<Char-246>', '<c-]>'                                                 },  -- ö → odiaeresis: <c-]>
   { 'n', '<Char-214>', '<Nop>'                                                 },  -- Ö → Odiaeresis: <Nop>
@@ -334,9 +334,9 @@ local mappings = {
   { '',  '<Char-231>', '<Leader>'                                              },  -- ç → ccedilla: <Leader>
   { '',  '<Char-199>', '<LocalLeader>'                                         },  -- Ç → Ccedilla: <LocalLeader>
 
-  { 'n', '<Char-287>', '}'                                                     },  -- ğ → gbreve: }
-  { 'n', '<Char-287>', '}'                                                     },  -- ğ → gbreve: }
-  { 'v', '<Char-286>', '{'                                                     },  -- Ğ → Gbreve {
+  { 'n', '<Char-287>', '['                                                     },  -- ğ → gbreve: [
+  { 'v', '<Char-287>', '['                                                     },  -- ğ → gbreve: [
+  { 'n', '<Char-286>', '{'                                                     },  -- Ğ → Gbreve {
   { 'v', '<Char-286>', '{'                                                     },  -- Ğ → Gbreve {
 
   { 'n', '<Char-351>', ':%s/<c-r>=expand("<cword>")<cr>//gc<left><left><left>' }, -- ş → scedilla: Kursörün altındaki kelimeyi bul/değiştir
@@ -347,8 +347,6 @@ local mappings = {
 }
 
 Turkish.use_mappings = function()
-  local mapping
-
   for _, mapping in ipairs(mappings) do
     local mode = mapping[1]
     local lhs  = mapping[2]
